@@ -25,3 +25,18 @@ fact("renders with a custom class", () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveAttribute("class", "custom-class");
 });
+
+fact("supports DOM props", () => {
+  // ARRANGE
+  render(Button, {
+    attrs: {
+      "data-testid": "custom-id",
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute(
+    "data-testid",
+    "custom-id"
+  );
+});
