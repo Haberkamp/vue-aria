@@ -13,3 +13,15 @@ fact("has a class by default", () => {
     "vue-aria-Button"
   );
 });
+
+fact("renders with a custom class", () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      class: "custom-class",
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("class", "custom-class");
+});
