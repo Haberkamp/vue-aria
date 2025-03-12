@@ -11,5 +11,8 @@ export default defineConfig({
       fileName: "index",
       formats: ["es"], // we only support ESM
     },
+    rollupOptions: {
+      external: ["vue"],
+    },
   },
 });
