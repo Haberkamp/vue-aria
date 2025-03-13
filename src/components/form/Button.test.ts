@@ -211,3 +211,54 @@ fact(
     expect(screen.getByRole("button")).not.toHaveAttribute("data-hovered");
   }
 );
+
+fact("supports adding a class when hovering over the button", async () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      className: () => "custom-class",
+    },
+  });
+
+  // ACT
+  await userEvent.hover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass(
+    "custom-class vue-aria-Button"
+  );
+});
+
+fact(
+  "does not add the custom hover class when not hovering over the button",
+  async () => {
+    // ARRANGE
+    render(Button, {
+      props: {
+        className: ({ isHovered }) => (isHovered ? "hover-class" : ""),
+      },
+    });
+
+    // ACT
+    await userEvent.unhover(screen.getByRole("button"));
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+  }
+);
+
+fact("keeps the overwritten class when using a render prop", async () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      class: "default-class",
+      className: () => "custom-class",
+    },
+  });
+
+  // ACT
+  await userEvent.hover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass("custom-class default-class");
+});

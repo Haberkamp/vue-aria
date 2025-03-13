@@ -14,16 +14,17 @@
         $emit('hoverEnd', event);
       }
     "
-    :class="props.class ?? 'vue-aria-Button'"
+    :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
   ></button>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps<{
-  class?: string;
+  class?: string | ((props: { isHovered: boolean }) => string);
+  className?: string | ((props: { isHovered: boolean }) => string);
 }>();
 
 defineEmits<{
@@ -31,6 +32,23 @@ defineEmits<{
   hoverEnd: [MouseEvent];
   hoverChange: [boolean, MouseEvent];
 }>();
+
+const DEFAULT_CLASS = "vue-aria-Button";
+
+const customClass = computed(() => {
+  const baseClass = props.class ?? DEFAULT_CLASS;
+
+  const usingRenderProp = typeof props.className === "function";
+  if (usingRenderProp) {
+    const dynamicClasses = props.className({
+      isHovered: isHovering.value,
+    });
+
+    return `${dynamicClasses} ${baseClass}`;
+  }
+
+  return baseClass;
+});
 
 const isHovering = ref(false);
 </script>
