@@ -194,7 +194,7 @@ fact(
     await userEvent.hover(screen.getByRole("button"));
 
     // ASSERT
-    expect(screen.getByRole("button")).toHaveAttribute("data-hovered");
+    expect(screen.getByRole("button")).toHaveAttribute("data-hovered", "true");
   }
 );
 
