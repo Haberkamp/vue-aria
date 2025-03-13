@@ -121,3 +121,20 @@ fact("emits a hoverEnd event when unhovering the button", async () => {
   expect(emitted("hoverEnd")).toBeDefined();
   expect(handler).toHaveBeenCalled();
 });
+
+fact("emits a mouseleave event when unhovering the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    attrs: {
+      onMouseleave: handler,
+    },
+  });
+
+  // ACT
+  await userEvent.unhover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(emitted("mouseleave")).toBeDefined();
+  expect(handler).toHaveBeenCalled();
+});
