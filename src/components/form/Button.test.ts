@@ -47,6 +47,9 @@ fact("supports from props", () => {
   // ARRANGE
   const Parent = defineComponent({
     template: '<form id="foo"><Button form="foo" formMethod="post" /></form>',
+    components: {
+      Button,
+    },
   });
 
   render(Parent);
