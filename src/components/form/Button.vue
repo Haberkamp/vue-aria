@@ -6,6 +6,7 @@
         $emit('hoverStart');
       }
     "
+    @mouseleave="$emit('hoverEnd')"
     :class="props.class ?? 'vue-aria-Button'"
   ></button>
 </template>
@@ -17,5 +18,6 @@ const props = defineProps<{
 
 defineEmits<{
   hoverStart: [];
+  hoverEnd: [];
 }>();
 </script>
