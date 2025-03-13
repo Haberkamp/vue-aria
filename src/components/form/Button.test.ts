@@ -2,6 +2,7 @@ import { test as fact, expect } from "vitest";
 import { render, screen } from "@testing-library/vue";
 
 import Button from "./Button.vue";
+import { defineComponent } from "vue";
 
 fact("has a class by default", () => {
   // ARRANGE
@@ -39,4 +40,17 @@ fact("supports DOM props", () => {
     "data-testid",
     "custom-id"
   );
+});
+
+fact("supports from props", () => {
+  // ARRANGE
+  const Parent = defineComponent({
+    template: '<form id="foo"><Button form="foo" formMethod="post" /></form>',
+  });
+
+  render(Parent);
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("form", "foo");
+  expect(screen.getByRole("button")).toHaveAttribute("formMethod", "post");
 });
