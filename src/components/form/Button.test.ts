@@ -328,3 +328,41 @@ fact("emits a blur event when the button is blurred", async () => {
   // ACT
   await userEvent.tab();
 });
+
+fact(
+  "does not add a custom focus-visible class when the button is not focused",
+  () => {
+    // ARRANGE
+    render(Button, {
+      props: {
+        className: ({ isFocusVisible }) =>
+          isFocusVisible ? "custom-class" : "",
+      },
+    });
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+    expect(screen.getByRole("button")).toHaveClass("vue-aria-Button");
+  }
+);
+
+fact(
+  "adds a custom focus-visible class when the button is focused",
+  async () => {
+    // ARRANGE
+    render(Button, {
+      props: {
+        className: ({ isFocusVisible }) =>
+          isFocusVisible ? "custom-class" : "",
+      },
+    });
+
+    // ACT
+    await userEvent.click(screen.getByRole("button"));
+
+    // ASSERT
+    expect(screen.getByRole("button")).toHaveClass(
+      "custom-class vue-aria-Button"
+    );
+  }
+);

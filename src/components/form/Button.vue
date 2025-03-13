@@ -27,7 +27,9 @@ import { computed, ref } from "vue";
 
 const props = defineProps<{
   class?: string;
-  className?: string | ((props: { isHovered: boolean }) => string);
+  className?:
+    | string
+    | ((props: { isHovered: boolean; isFocusVisible: boolean }) => string);
 }>();
 
 defineEmits<{
@@ -45,6 +47,7 @@ const customClass = computed(() => {
   if (usingRenderProp) {
     const dynamicClasses = props.className({
       isHovered: isHovering.value,
+      isFocusVisible: isFocused.value,
     });
 
     return `${dynamicClasses} ${baseClass}`;
