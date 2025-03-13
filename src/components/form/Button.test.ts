@@ -321,3 +321,10 @@ fact("emits a focus event when the button is focused", async () => {
   await userEvent.click(screen.getByRole("button"));
 });
 
+fact("emits a blur event when the button is blurred", async () => {
+  // ARRANGE
+  render(Button);
+
+  // ACT
+  await userEvent.tab();
+});
