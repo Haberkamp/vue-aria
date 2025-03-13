@@ -54,3 +54,18 @@ fact("supports from props", () => {
   expect(screen.getByRole("button")).toHaveAttribute("form", "foo");
   expect(screen.getByRole("button")).toHaveAttribute("formMethod", "post");
 });
+
+fact("supports accessibility props", () => {
+  // ARRANGE
+  render(Button, {
+    attrs: {
+      "aria-label": "custom-label",
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute(
+    "aria-label",
+    "custom-label"
+  );
+});
