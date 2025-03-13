@@ -3,7 +3,7 @@
     @mouseover="
       (event) => {
         isHovering = true;
-        $emit('hoverStart');
+        $emit('hoverStart', event);
         $emit('hoverChange', true, event);
       }
     "
@@ -11,7 +11,7 @@
       (event) => {
         isHovering = false;
         $emit('hoverChange', false, event);
-        $emit('hoverEnd');
+        $emit('hoverEnd', event);
       }
     "
     :class="props.class ?? 'vue-aria-Button'"
@@ -27,8 +27,8 @@ const props = defineProps<{
 }>();
 
 defineEmits<{
-  hoverStart: [];
-  hoverEnd: [];
+  hoverStart: [MouseEvent];
+  hoverEnd: [MouseEvent];
   hoverChange: [boolean, MouseEvent];
 }>();
 

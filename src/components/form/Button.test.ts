@@ -85,7 +85,7 @@ fact("emits a hoverStart event when hovering over the button", async () => {
 
   // ASSERT
   expect(emitted("hoverStart")).toBeDefined();
-  expect(handler).toHaveBeenCalled();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
 });
 
 fact("emits a mouseover event when hovering over the button", async () => {
@@ -102,7 +102,7 @@ fact("emits a mouseover event when hovering over the button", async () => {
 
   // ASSERT
   expect(emitted("mouseover")).toBeDefined();
-  expect(handler).toHaveBeenCalled();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
 });
 
 fact("emits a hoverEnd event when unhovering the button", async () => {
@@ -119,7 +119,7 @@ fact("emits a hoverEnd event when unhovering the button", async () => {
 
   // ASSERT
   expect(emitted("hoverEnd")).toBeDefined();
-  expect(handler).toHaveBeenCalled();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
 });
 
 fact("emits a mouseleave event when unhovering the button", async () => {
@@ -136,7 +136,7 @@ fact("emits a mouseleave event when unhovering the button", async () => {
 
   // ASSERT
   expect(emitted("mouseleave")).toBeDefined();
-  expect(handler).toHaveBeenCalled();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
 });
 
 fact("emits a hoverChange event when hovering over the button", async () => {
