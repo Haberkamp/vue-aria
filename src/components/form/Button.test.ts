@@ -265,3 +265,50 @@ fact("keeps the overwritten class when using a render prop", async () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveClass("custom-class default-class");
 });
+
+fact(
+  "does not add a data-focus-visible attribute when the button is not focused",
+  () => {
+    // ARRANGE
+    render(Button);
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveAttribute(
+      "data-focus-visible"
+    );
+  }
+);
+
+fact(
+  "adds a data-focus-visible attribute when the button is focused",
+  async () => {
+    // ARRANGE
+    render(Button);
+
+    // ACT
+    await userEvent.click(screen.getByRole("button"));
+
+    // ASSERT
+    expect(screen.getByRole("button")).toHaveAttribute(
+      "data-focus-visible",
+      "true"
+    );
+  }
+);
+
+fact(
+  "removes the data-focus-visible attribute when the button gets blurred",
+  async () => {
+    // ARRANGE
+    render(Button);
+    await userEvent.tab();
+
+    // ACT
+    await userEvent.tab();
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveAttribute(
+      "data-focus-visible"
+    );
+  }
+);

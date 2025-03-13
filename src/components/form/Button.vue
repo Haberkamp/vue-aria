@@ -14,8 +14,11 @@
         $emit('hoverEnd', event);
       }
     "
+    @focus="isFocused = true"
+    @blur="isFocused = false"
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
+    :data-focus-visible="isFocused ? 'true' : undefined"
   ></button>
 </template>
 
@@ -51,4 +54,6 @@ const customClass = computed(() => {
 });
 
 const isHovering = ref(false);
+
+const isFocused = ref(false);
 </script>
