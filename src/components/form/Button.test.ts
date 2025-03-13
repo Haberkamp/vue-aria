@@ -138,3 +138,40 @@ fact("emits a mouseleave event when unhovering the button", async () => {
   expect(emitted("mouseleave")).toBeDefined();
   expect(handler).toHaveBeenCalled();
 });
+
+fact("emits a hoverChange event when hovering over the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    attrs: {
+      onHoverChange: handler,
+    },
+  });
+
+  // ACT
+  await userEvent.hover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(emitted("hoverChange")).toBeDefined();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(true, expect.any(MouseEvent));
+});
+
+fact("emits a hoverChange event when unhovering the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    attrs: {
+      onHoverChange: handler,
+    },
+  });
+
+  // ACT
+  await userEvent.unhover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(emitted("hoverChange")).toBeDefined();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(
+    false,
+    expect.any(MouseEvent)
+  );
+});
