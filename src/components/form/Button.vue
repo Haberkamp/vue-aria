@@ -1,14 +1,15 @@
 <template>
-  <button
+  <component
+    :is="is"
     @mouseover="
-      (event) => {
+      (event: MouseEvent) => {
         isHovering = true;
         $emit('hoverStart', event);
         $emit('hoverChange', true, event);
       }
     "
     @mouseleave="
-      (event) => {
+      (event: MouseEvent) => {
         isHovering = false;
         $emit('hoverChange', false, event);
         $emit('hoverEnd', event);
@@ -27,7 +28,7 @@
       :is-focus-visible="isFocused"
       :is-hovered="isHovering"
     />
-  </button>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -44,9 +45,11 @@ const props = withDefaults(
           disabled: boolean;
         }) => string);
     disabled?: boolean;
+    is?: string;
   }>(),
   {
     disabled: false,
+    is: "button",
   }
 );
 

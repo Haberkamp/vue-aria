@@ -431,3 +431,18 @@ fact("supports scoped slots", () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveTextContent("Enabled");
 });
+
+fact("supports rendering button with a different HTML element", () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      is: "a",
+    },
+    attrs: {
+      "data-testid": "link",
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByTestId("link").tagName).toBe("A");
+});
