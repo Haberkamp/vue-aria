@@ -30,7 +30,11 @@ const props = defineProps<{
   class?: string;
   className?:
     | string
-    | ((props: { isHovered: boolean; isFocusVisible: boolean }) => string);
+    | ((props: {
+        isHovered: boolean;
+        isFocusVisible: boolean;
+        disabled: boolean;
+      }) => string);
   disabled?: boolean;
 }>();
 
@@ -50,6 +54,7 @@ const customClass = computed(() => {
     const dynamicClasses = props.className({
       isHovered: isHovering.value,
       isFocusVisible: isFocused.value,
+      disabled: props.disabled,
     });
 
     return `${dynamicClasses} ${baseClass}`;

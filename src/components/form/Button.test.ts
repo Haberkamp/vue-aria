@@ -394,3 +394,28 @@ fact("is enabled when the disabled prop is false", () => {
   // ASSERT
   expect(screen.getByRole("button")).toBeEnabled();
 });
+
+fact("does not add a custom disabled class when the button is enabled", () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      className: ({ disabled }) => (disabled ? "custom-class" : ""),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+});
+
+fact("adds a custom disabled class when the button is disabled", () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      disabled: true,
+      className: ({ disabled }) => (disabled ? "custom-class" : ""),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass("custom-class");
+});
