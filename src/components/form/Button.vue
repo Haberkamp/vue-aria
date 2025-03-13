@@ -1,6 +1,11 @@
 <template>
   <button
-    @mouseover="$emit('hoverStart')"
+    @mouseover="
+      (event) => {
+        event.preventDefault();
+        $emit('hoverStart');
+      }
+    "
     :class="props.class ?? 'vue-aria-Button'"
   ></button>
 </template>

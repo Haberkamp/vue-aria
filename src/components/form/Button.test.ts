@@ -87,3 +87,20 @@ fact("emits a hoverStart event when hovering over the button", async () => {
   expect(emitted("hoverStart")).toBeDefined();
   expect(handler).toHaveBeenCalled();
 });
+
+fact("emits a mouseover event when hovering over the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    attrs: {
+      onMouseover: handler,
+    },
+  });
+
+  // ACT
+  await userEvent.hover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(emitted("mouseover")).toBeDefined();
+  expect(handler).toHaveBeenCalled();
+});
