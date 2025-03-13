@@ -175,3 +175,39 @@ fact("emits a hoverChange event when unhovering the button", async () => {
     expect.any(MouseEvent)
   );
 });
+
+fact("does not have a data-hovered attribute by default", () => {
+  // ARRANGE
+  render(Button);
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveAttribute("data-hovered");
+});
+
+fact(
+  "adds a data-hovered attribute when hovering over the button",
+  async () => {
+    // ARRANGE
+    render(Button);
+
+    // ACT
+    await userEvent.hover(screen.getByRole("button"));
+
+    // ASSERT
+    expect(screen.getByRole("button")).toHaveAttribute("data-hovered");
+  }
+);
+
+fact(
+  "removes the data-hovered attribute when unhovering the button",
+  async () => {
+    // ARRANGE
+    render(Button);
+
+    // ACT
+    await userEvent.unhover(screen.getByRole("button"));
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveAttribute("data-hovered");
+  }
+);
