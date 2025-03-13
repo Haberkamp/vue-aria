@@ -1,8 +1,5 @@
 <img src="./assets/vue-aria-logo.png" alt="vue-aria logo" width="150px" />
 
-<br />
-<br />
-
 # vue-aria
 
 A collection of unstyled primitive components. Accessible by default and great
