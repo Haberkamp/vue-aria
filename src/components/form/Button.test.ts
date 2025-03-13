@@ -419,3 +419,15 @@ fact("adds a custom disabled class when the button is disabled", () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveClass("custom-class");
 });
+
+fact("supports scoped slots", () => {
+  // ARRANGE
+  render(Button, {
+    slots: {
+      default: ({ disabled }) => (disabled ? "Disabled" : "Enabled"),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveTextContent("Enabled");
+});

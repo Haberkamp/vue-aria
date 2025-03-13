@@ -20,28 +20,48 @@
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
     :disabled="disabled"
-  ></button>
+  >
+    <slot
+      name="default"
+      :disabled="disabled"
+      :is-focus-visible="isFocused"
+      :is-hovered="isHovering"
+    />
+  </button>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-const props = defineProps<{
-  class?: string;
-  className?:
-    | string
-    | ((props: {
-        isHovered: boolean;
-        isFocusVisible: boolean;
-        disabled: boolean;
-      }) => string);
-  disabled?: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    class?: string;
+    className?:
+      | string
+      | ((props: {
+          isHovered: boolean;
+          isFocusVisible: boolean;
+          disabled: boolean;
+        }) => string);
+    disabled?: boolean;
+  }>(),
+  {
+    disabled: false,
+  }
+);
 
 defineEmits<{
   hoverStart: [MouseEvent];
   hoverEnd: [MouseEvent];
   hoverChange: [boolean, MouseEvent];
+}>();
+
+defineSlots<{
+  default(props: {
+    disabled: boolean;
+    isFocusVisible: boolean;
+    isHovered: boolean;
+  }): any;
 }>();
 
 const DEFAULT_CLASS = "vue-aria-Button";
