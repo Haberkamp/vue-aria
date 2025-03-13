@@ -23,7 +23,7 @@
 import { computed, ref } from "vue";
 
 const props = defineProps<{
-  class?: string | ((props: { isHovered: boolean }) => string);
+  class?: string;
   className?: string | ((props: { isHovered: boolean }) => string);
 }>();
 
