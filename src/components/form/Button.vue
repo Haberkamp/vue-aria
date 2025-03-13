@@ -19,6 +19,7 @@
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
+    :disabled="disabled"
   ></button>
 </template>
 
@@ -30,6 +31,7 @@ const props = defineProps<{
   className?:
     | string
     | ((props: { isHovered: boolean; isFocusVisible: boolean }) => string);
+  disabled?: boolean;
 }>();
 
 defineEmits<{

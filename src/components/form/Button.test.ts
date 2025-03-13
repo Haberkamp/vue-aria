@@ -366,3 +366,31 @@ fact(
     );
   }
 );
+
+fact("is enabled by default", () => {
+  // ARRANGE
+  render(Button);
+
+  // ASSERT
+  expect(screen.getByRole("button")).toBeEnabled();
+});
+
+fact("is disabled when the disabled prop is true", () => {
+  // ARRANGE
+  render(Button, {
+    props: { disabled: true },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toBeDisabled();
+});
+
+fact("is enabled when the disabled prop is false", () => {
+  // ARRANGE
+  render(Button, {
+    props: { disabled: false },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toBeEnabled();
+});
