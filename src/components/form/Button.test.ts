@@ -312,3 +312,12 @@ fact(
     );
   }
 );
+
+fact("emits a focus event when the button is focused", async () => {
+  // ARRANGE
+  render(Button);
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+});
+
