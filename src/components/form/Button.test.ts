@@ -1,5 +1,6 @@
-import { test as fact, expect } from "vitest";
+import { test as fact, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/vue";
+import { userEvent } from "@testing-library/user-event";
 
 import Button from "./Button.vue";
 import { defineComponent } from "vue";
@@ -68,4 +69,21 @@ fact("supports accessibility props", () => {
     "aria-label",
     "custom-label"
   );
+});
+
+fact("emits a hoverStart event when hovering over the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: {
+      onHoverStart: handler,
+    },
+  });
+
+  // ACT
+  await userEvent.hover(screen.getByRole("button"));
+
+  // ASSERT
+  expect(emitted("hoverStart")).toBeDefined();
+  expect(handler).toHaveBeenCalled();
 });
