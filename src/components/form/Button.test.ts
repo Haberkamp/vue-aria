@@ -446,3 +446,41 @@ fact("supports rendering button with a different HTML element", () => {
   // ASSERT
   expect(screen.getByTestId("link").tagName).toBe("A");
 });
+
+fact("does not have an href attribute by default", () => {
+  // ARRANGE
+  render(Button);
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveAttribute("href");
+});
+
+fact("supports having a href attribute", () => {
+  // ARRANGE
+  render(Button, {
+    props: { href: "https://example.com", is: "a" },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("link")).toHaveAttribute(
+    "href",
+    "https://example.com"
+  );
+});
+
+fact("removes href when button is pending", () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      isPending: true,
+      is: "a",
+      href: "https://example.com",
+    },
+    attrs: {
+      "data-testid": "link",
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByTestId("link")).not.toHaveAttribute("href");
+});

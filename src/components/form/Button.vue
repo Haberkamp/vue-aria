@@ -21,6 +21,7 @@
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
     :disabled="disabled"
+    :href="isPending ? undefined : href"
   >
     <slot
       name="default"
@@ -46,6 +47,8 @@ const props = withDefaults(
         }) => string);
     disabled?: boolean;
     is?: string;
+    isPending?: boolean;
+    href?: string;
   }>(),
   {
     disabled: false,
