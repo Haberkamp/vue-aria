@@ -755,3 +755,19 @@ fact("emits a keyup event when releasing a key", async () => {
   expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent));
   expect(emitted("keyup")).toBeDefined();
 });
+
+fact("does not emit a keyup event when the button is pending", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { isPending: true, onKeyup: handler },
+  });
+
+  // ACT
+  await userEvent.tab();
+  await userEvent.keyboard("{a>}");
+
+  // ASSERT
+  expect(handler).not.toHaveBeenCalled();
+  expect(emitted("keyup")).toBeUndefined();
+});
