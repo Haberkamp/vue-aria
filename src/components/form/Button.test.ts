@@ -599,3 +599,21 @@ fact.each(["{Enter}", " "])(
     expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
   }
 );
+
+fact("adds a data-pending attribute when pending", () => {
+  // ARRANGE
+  render(Button, {
+    props: { isPending: true },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("data-pending", "true");
+});
+
+fact("does not add a data-pending attribute when not pending", () => {
+  // ARRANGE
+  render(Button);
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveAttribute("data-pending");
+});
