@@ -692,3 +692,18 @@ fact(
     expect(emitted("click")).toBeUndefined();
   }
 );
+
+fact("do not emit click event when clicking on isPending button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { isPending: true, onClick: handler },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(handler).not.toHaveBeenCalled();
+  expect(emitted("click")).toBeUndefined();
+});
