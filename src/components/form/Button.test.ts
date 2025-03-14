@@ -617,3 +617,25 @@ fact("does not add a data-pending attribute when not pending", () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveAttribute("data-pending");
 });
+
+fact(
+  "does not add a data-focused attribute when the button is not focused",
+  () => {
+    // ARRANGE
+    render(Button);
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveAttribute("data-focused");
+  }
+);
+
+fact("adds a data-focused attribute when the button is focused", async () => {
+  // ARRANGE
+  render(Button);
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("data-focused", "true");
+});
