@@ -484,3 +484,16 @@ fact("removes href when button is pending", () => {
   // ASSERT
   expect(screen.getByTestId("link")).not.toHaveAttribute("href");
 });
+
+fact("shows a loading spinner when the button is pending", () => {
+  // ARRANGE
+  render(Button, {
+    props: { isPending: true },
+    slots: {
+      default: ({ isPending }) => (isPending ? "Loading..." : "Click me"),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveTextContent("Loading...");
+});

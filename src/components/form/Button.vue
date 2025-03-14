@@ -28,6 +28,7 @@
       :disabled="disabled"
       :is-focus-visible="isFocused"
       :is-hovered="isHovering"
+      :is-pending="isPending"
     />
   </component>
 </template>
@@ -53,6 +54,7 @@ const props = withDefaults(
   {
     disabled: false,
     is: "button",
+    isPending: false,
   }
 );
 
@@ -67,6 +69,7 @@ defineSlots<{
     disabled: boolean;
     isFocusVisible: boolean;
     isHovered: boolean;
+    isPending: boolean;
   }): any;
 }>();
 
