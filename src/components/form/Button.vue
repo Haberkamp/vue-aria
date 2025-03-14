@@ -56,12 +56,24 @@
         $emit('keypress', event);
       }
     "
+    @mousedown="
+      () => {
+        isPressed = true;
+      }
+    "
+    @mouseup="
+      () => {
+        console.log('mouseup');
+        isPressed = false;
+      }
+    "
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
     :data-focused="isFocused ? 'true' : undefined"
     :data-disabled="disabled ? 'true' : undefined"
     :data-pending="isPending ? 'true' : undefined"
+    :data-pressed="isPressed ? 'true' : undefined"
     :disabled="disabled"
     :href="isPending ? undefined : href"
     :aria-disabled="isPending ? 'true' : undefined"
@@ -145,4 +157,6 @@ const customClass = computed(() => {
 const isHovering = ref(false);
 
 const isFocused = ref(false);
+
+const isPressed = ref(false);
 </script>

@@ -803,3 +803,33 @@ fact("does not emit a keypress event when button is pending", async () => {
   expect(handler).not.toHaveBeenCalled();
   expect(emitted("keypress")).toBeUndefined();
 });
+
+fact("adds a data-pressed attribute when the button is pressed", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { onPress: vi.fn() },
+  });
+
+  // ACT
+  await userEvent.pointer({
+    target: screen.getByRole("button"),
+    keys: "[MouseLeft>]",
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("data-pressed", "true");
+});
+
+fact("removes the data-pressed when the button is released", async () => {
+  // ARRANGE
+  render(Button);
+
+  await userEvent.tab();
+  await userEvent.pointer("[MouseLeft>]");
+
+  // ACT
+  await userEvent.pointer("[/MouseLeft]");
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveAttribute("data-pressed");
+});
