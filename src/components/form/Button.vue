@@ -80,6 +80,7 @@ defineEmits<{
   hoverChange: [boolean, MouseEvent];
   press: [MouseEvent];
   blur: [FocusEvent];
+  focus: [FocusEvent];
 }>();
 
 defineSlots<{
