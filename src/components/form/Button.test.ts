@@ -787,3 +787,19 @@ fact("emits a keypress event when pressing a key", async () => {
   expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent));
   expect(emitted("keypress")).toBeDefined();
 });
+
+fact("does not emit a keypress event when button is pending", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { isPending: true, onKeypress: handler },
+  });
+
+  // ACT
+  await userEvent.tab();
+  await userEvent.keyboard("{a>}");
+
+  // ASSERT
+  expect(handler).not.toHaveBeenCalled();
+  expect(emitted("keypress")).toBeUndefined();
+});

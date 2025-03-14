@@ -49,7 +49,13 @@
         $emit('keyup', event);
       }
     "
-    @keypress="$emit('keypress', $event)"
+    @keypress="
+      (event: KeyboardEvent) => {
+        if (isPending) return;
+
+        $emit('keypress', event);
+      }
+    "
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
