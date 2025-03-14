@@ -85,6 +85,7 @@
       :is-hovered="isHovering"
       :is-pending="isPending"
       :is-pressed="isPressed"
+      :is-focused="isFocused"
     />
   </component>
 </template>
@@ -135,6 +136,7 @@ defineSlots<{
     isHovered: boolean;
     isPending: boolean;
     isPressed: boolean;
+    isFocused: boolean;
   }): any;
 }>();
 

@@ -903,3 +903,35 @@ fact("removes custom content when button is released", async () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveTextContent("Pressed");
 });
+
+fact("adds custom content when the button is focused", async () => {
+  // ARRANGE
+  render(Button, {
+    slots: {
+      default: ({ isFocused }) => (isFocused ? "Focused" : "Not focused"),
+    },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveTextContent("Focused");
+});
+
+fact("removes custom content when the button is blurred", async () => {
+  // ARRANGE
+  render(Button, {
+    slots: {
+      default: ({ isFocused }) => (isFocused ? "Focused" : "Not focused"),
+    },
+  });
+
+  await userEvent.click(screen.getByRole("button"));
+
+  // ACT
+  await userEvent.tab();
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveTextContent("Focused");
+});
