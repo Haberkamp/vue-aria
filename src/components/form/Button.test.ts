@@ -519,6 +519,21 @@ fact("shows a loading spinner when the button is pending", () => {
   expect(screen.getByRole("button")).toHaveTextContent("Loading...");
 });
 
+fact("keeps the focus when pending", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { isPending: true },
+  });
+
+  await userEvent.tab();
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveFocus();
+});
+
 fact("is disabled to screen readers when pending", () => {
   // ARRANGE
   render(Button, {
