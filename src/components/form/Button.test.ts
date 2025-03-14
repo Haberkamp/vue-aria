@@ -867,3 +867,39 @@ fact("removes the custom class when the button is released", async () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveClass("custom-class");
 });
+
+fact("adds custom content when button is pressed", async () => {
+  // ARRANGE
+  render(Button, {
+    slots: {
+      default: ({ isPressed }) => (isPressed ? "Pressed" : "Not pressed"),
+    },
+  });
+
+  // ACT
+  await userEvent.pointer({
+    target: screen.getByRole("button"),
+    keys: "[MouseLeft>]",
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveTextContent("Pressed");
+});
+
+fact("removes custom content when button is released", async () => {
+  // ARRANGE
+  render(Button, {
+    slots: {
+      default: ({ isPressed }) => (isPressed ? "Pressed" : "Not pressed"),
+    },
+  });
+
+  await userEvent.tab();
+  await userEvent.pointer("[MouseLeft>]");
+
+  // ACT
+  await userEvent.pointer("[/MouseLeft]");
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveTextContent("Pressed");
+});
