@@ -517,3 +517,17 @@ fact("is not disabled to screen readers when not pending", () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveAttribute("aria-disabled");
 });
+
+fact("does not emit a onPress event when pending", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  render(Button, {
+    props: { isPending: true, onPress: handler },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(handler).not.toHaveBeenCalled();
+});

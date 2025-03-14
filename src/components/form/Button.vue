@@ -17,6 +17,13 @@
     "
     @focus="isFocused = true"
     @blur="isFocused = false"
+    @click="
+      (event: MouseEvent) => {
+        if (isPending) return;
+
+        $emit('press', event);
+      }
+    "
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
@@ -63,6 +70,7 @@ defineEmits<{
   hoverStart: [MouseEvent];
   hoverEnd: [MouseEvent];
   hoverChange: [boolean, MouseEvent];
+  press: [MouseEvent];
 }>();
 
 defineSlots<{
