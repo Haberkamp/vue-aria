@@ -323,10 +323,21 @@ fact("emits a focus event when the button is focused", async () => {
 
 fact("emits a blur event when the button is blurred", async () => {
   // ARRANGE
-  render(Button);
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: {
+      onBlur: handler,
+    },
+  });
+
+  await userEvent.tab();
 
   // ACT
   await userEvent.tab();
+
+  // ASSERT
+  expect(emitted("blur")).toBeDefined();
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(FocusEvent));
 });
 
 fact(

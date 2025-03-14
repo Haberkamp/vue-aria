@@ -16,7 +16,12 @@
       }
     "
     @focus="isFocused = true"
-    @blur="isFocused = false"
+    @blur="
+      (event: FocusEvent) => {
+        isFocused = false;
+        $emit('blur', event);
+      }
+    "
     @click="
       (event: MouseEvent) => {
         if (isPending) return;
@@ -74,6 +79,7 @@ defineEmits<{
   hoverEnd: [MouseEvent];
   hoverChange: [boolean, MouseEvent];
   press: [MouseEvent];
+  blur: [FocusEvent];
 }>();
 
 defineSlots<{
