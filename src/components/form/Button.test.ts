@@ -545,3 +545,21 @@ fact("emits a press event when the button is clicked", async () => {
   // ASSERT
   expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
 });
+
+fact.each(["{Enter}", " "])(
+  'does emit a press event when pressing "%s"',
+  async (key) => {
+    // ARRANGE
+    const handler = vi.fn();
+    render(Button, {
+      props: { onPress: handler },
+    });
+
+    // ACT
+    await userEvent.tab();
+    await userEvent.keyboard(key);
+
+    // ASSERT
+    expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
+  }
+);
