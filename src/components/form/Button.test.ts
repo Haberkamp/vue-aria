@@ -963,3 +963,30 @@ fact("removes a custom class when the button is blurred", async () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveClass("custom-class");
 });
+
+fact("adds a custom class when the button is pending", async () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      isPending: true,
+      className: ({ isPending }) => (isPending ? "custom-class" : ""),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass(
+    "custom-class vue-aria-Button"
+  );
+});
+
+fact("removes a custom class when the button is not pending", async () => {
+  // ARRANGE
+  render(Button, {
+    props: {
+      className: ({ isPending }) => (isPending ? "custom-class" : ""),
+    },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+});
