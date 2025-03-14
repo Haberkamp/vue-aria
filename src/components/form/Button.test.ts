@@ -659,3 +659,18 @@ fact("adds a data-focused attribute when the button is focused", async () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveAttribute("data-focused", "true");
 });
+
+fact("emits onClick event when clicking on the button", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { onClick: handler },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
+  expect(emitted("click")).toBeDefined();
+});

@@ -32,6 +32,7 @@
         if (isPending) return;
 
         $emit('press', event);
+        $emit('click', event);
       }
     "
     :class="customClass"
@@ -86,6 +87,7 @@ defineEmits<{
   press: [MouseEvent];
   blur: [FocusEvent];
   focus: [FocusEvent];
+  click: [MouseEvent];
 }>();
 
 defineSlots<{
