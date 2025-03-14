@@ -35,7 +35,13 @@
         $emit('click', event);
       }
     "
-    @keydown="$emit('keydown', $event)"
+    @keydown="
+      (event: KeyboardEvent) => {
+        if (isPending) return;
+
+        $emit('keydown', event);
+      }
+    "
     @keyup="$emit('keyup', $event)"
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"

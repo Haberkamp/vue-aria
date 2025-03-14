@@ -724,6 +724,22 @@ fact("emits keydown event when pressing a key", async () => {
   expect(emitted("keydown")).toBeDefined();
 });
 
+fact("does not emit a keydown event when the button is pendign", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { isPending: true, onKeydown: handler },
+  });
+
+  // ACT
+  await userEvent.tab();
+  await userEvent.keyboard("{a>}");
+
+  // ASSERT
+  expect(handler).not.toHaveBeenCalled();
+  expect(emitted("keydown")).toBeUndefined();
+});
+
 fact("emits a keyup event when releasing a key", async () => {
   // ARRANGE
   const handler = vi.fn();
