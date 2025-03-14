@@ -419,7 +419,7 @@ fact("does not add a custom disabled class when the button is enabled", () => {
   // ARRANGE
   render(Button, {
     props: {
-      className: ({ disabled }) => (disabled ? "custom-class" : ""),
+      className: ({ isDisabled }) => (isDisabled ? "custom-class" : ""),
     },
   });
 
@@ -432,7 +432,7 @@ fact("adds a custom disabled class when the button is disabled", () => {
   render(Button, {
     props: {
       disabled: true,
-      className: ({ disabled }) => (disabled ? "custom-class" : ""),
+      className: ({ isDisabled }) => (isDisabled ? "custom-class" : ""),
     },
   });
 
@@ -465,7 +465,7 @@ fact("supports scoped slots", () => {
   // ARRANGE
   render(Button, {
     slots: {
-      default: ({ disabled }) => (disabled ? "Disabled" : "Enabled"),
+      default: ({ isDisabled }) => (isDisabled ? "Disabled" : "Enabled"),
     },
   });
 

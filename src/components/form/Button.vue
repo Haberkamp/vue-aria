@@ -80,7 +80,7 @@
   >
     <slot
       name="default"
-      :disabled="disabled"
+      :is-disabled="disabled"
       :is-focus-visible="isFocused"
       :is-hovered="isHovering"
       :is-pending="isPending"
@@ -101,7 +101,7 @@ const props = withDefaults(
       | ((props: {
           isHovered: boolean;
           isFocusVisible: boolean;
-          disabled: boolean;
+          isDisabled: boolean;
           isPressed: boolean;
         }) => string);
     disabled?: boolean;
@@ -131,7 +131,7 @@ defineEmits<{
 
 defineSlots<{
   default(props: {
-    disabled: boolean;
+    isDisabled: boolean;
     isFocusVisible: boolean;
     isHovered: boolean;
     isPending: boolean;
@@ -150,7 +150,7 @@ const customClass = computed(() => {
     const dynamicClasses = props.className({
       isHovered: isHovering.value,
       isFocusVisible: isFocused.value,
-      disabled: props.disabled,
+      isDisabled: props.disabled,
       isPressed: isPressed.value,
     });
 
