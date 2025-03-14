@@ -833,3 +833,37 @@ fact("removes the data-pressed when the button is released", async () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveAttribute("data-pressed");
 });
+
+fact("adds a custom class when the button is pressed", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { className: ({ isPressed }) => (isPressed ? "custom-class" : "") },
+  });
+
+  // ACT
+  await userEvent.pointer({
+    target: screen.getByRole("button"),
+    keys: "[MouseLeft>]",
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass(
+    "custom-class vue-aria-Button"
+  );
+});
+
+fact("removes the custom class when the button is released", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { className: ({ isPressed }) => (isPressed ? "custom-class" : "") },
+  });
+
+  await userEvent.tab();
+  await userEvent.pointer("[MouseLeft>]");
+
+  // ACT
+  await userEvent.pointer("[/MouseLeft]");
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+});
