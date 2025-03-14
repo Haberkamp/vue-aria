@@ -497,3 +497,23 @@ fact("shows a loading spinner when the button is pending", () => {
   // ASSERT
   expect(screen.getByRole("button")).toHaveTextContent("Loading...");
 });
+
+fact("is disabled to screen readers when pending", () => {
+  // ARRANGE
+  render(Button, {
+    props: { isPending: true },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("aria-disabled", "true");
+});
+
+fact("is not disabled to screen readers when not pending", () => {
+  // ARRANGE
+  render(Button, {
+    props: { isPending: false },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveAttribute("aria-disabled");
+});

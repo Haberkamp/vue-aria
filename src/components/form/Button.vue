@@ -22,6 +22,7 @@
     :data-focus-visible="isFocused ? 'true' : undefined"
     :disabled="disabled"
     :href="isPending ? undefined : href"
+    :aria-disabled="isPending ? 'true' : undefined"
   >
     <slot
       name="default"
