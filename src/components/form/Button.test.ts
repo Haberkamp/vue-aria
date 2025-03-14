@@ -723,3 +723,19 @@ fact("emits keydown event when pressing a key", async () => {
   expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent));
   expect(emitted("keydown")).toBeDefined();
 });
+
+fact("emits a keyup event when releasing a key", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { onKeyup: handler },
+  });
+
+  // ACT
+  await userEvent.tab();
+  await userEvent.keyboard("{a>}");
+
+  // ASSERT
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent));
+  expect(emitted("keyup")).toBeDefined();
+});

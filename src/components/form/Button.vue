@@ -36,6 +36,7 @@
       }
     "
     @keydown="$emit('keydown', $event)"
+    @keyup="$emit('keyup', $event)"
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
@@ -90,6 +91,7 @@ defineEmits<{
   focus: [FocusEvent];
   click: [MouseEvent];
   keydown: [KeyboardEvent];
+  keyup: [KeyboardEvent];
 }>();
 
 defineSlots<{
