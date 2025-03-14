@@ -15,7 +15,12 @@
         $emit('hoverEnd', event);
       }
     "
-    @focus="isFocused = true"
+    @focus="
+      (event: FocusEvent) => {
+        isFocused = true;
+        $emit('focus', event);
+      }
+    "
     @blur="
       (event: FocusEvent) => {
         isFocused = false;
