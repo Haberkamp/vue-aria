@@ -27,6 +27,7 @@
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
+    :data-disabled="disabled ? 'true' : undefined"
     :disabled="disabled"
     :href="isPending ? undefined : href"
     :aria-disabled="isPending ? 'true' : undefined"

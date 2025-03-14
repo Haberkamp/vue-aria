@@ -420,6 +420,27 @@ fact("adds a custom disabled class when the button is disabled", () => {
   expect(screen.getByRole("button")).toHaveClass("custom-class");
 });
 
+fact(
+  "does not add a data-disabled attribute when the button is enabled",
+  () => {
+    // ARRANGE
+    render(Button);
+
+    // ASSERT
+    expect(screen.getByRole("button")).not.toHaveAttribute("data-disabled");
+  }
+);
+
+fact("adds a data-disabled attribute when the button is disabled", () => {
+  // ARRANGE
+  render(Button, {
+    props: { disabled: true },
+  });
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveAttribute("data-disabled", "true");
+});
+
 fact("supports scoped slots", () => {
   // ARRANGE
   render(Button, {
