@@ -674,3 +674,21 @@ fact("emits onClick event when clicking on the button", async () => {
   expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
   expect(emitted("click")).toBeDefined();
 });
+
+fact(
+  "do not emit onClick event when clicking on a disabled button",
+  async () => {
+    // ARRANGE
+    const handler = vi.fn();
+    const { emitted } = render(Button, {
+      props: { disabled: true, onClick: handler },
+    });
+
+    // ACT
+    await userEvent.click(screen.getByRole("button"));
+
+    // ASSERT
+    expect(handler).not.toHaveBeenCalled();
+    expect(emitted("click")).toBeUndefined();
+  }
+);
