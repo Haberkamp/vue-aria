@@ -707,3 +707,19 @@ fact("do not emit click event when clicking on isPending button", async () => {
   expect(handler).not.toHaveBeenCalled();
   expect(emitted("click")).toBeUndefined();
 });
+
+fact("emits keydown event when pressing a key", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  const { emitted } = render(Button, {
+    props: { onKeydown: handler },
+  });
+
+  // ACT
+  await userEvent.tab();
+  await userEvent.keyboard("{a>}");
+
+  // ASSERT
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(KeyboardEvent));
+  expect(emitted("keydown")).toBeDefined();
+});

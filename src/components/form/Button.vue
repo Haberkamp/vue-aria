@@ -35,6 +35,7 @@
         $emit('click', event);
       }
     "
+    @keydown="$emit('keydown', $event)"
     :class="customClass"
     :data-hovered="isHovering ? 'true' : undefined"
     :data-focus-visible="isFocused ? 'true' : undefined"
@@ -88,6 +89,7 @@ defineEmits<{
   blur: [FocusEvent];
   focus: [FocusEvent];
   click: [MouseEvent];
+  keydown: [KeyboardEvent];
 }>();
 
 defineSlots<{
