@@ -103,6 +103,7 @@ const props = withDefaults(
           isFocusVisible: boolean;
           isDisabled: boolean;
           isPressed: boolean;
+          isFocused: boolean;
         }) => string);
     disabled?: boolean;
     is?: string;
@@ -152,6 +153,7 @@ const customClass = computed(() => {
       isFocusVisible: isFocused.value,
       isDisabled: props.disabled,
       isPressed: isPressed.value,
+      isFocused: isFocused.value,
     });
 
     return `${dynamicClasses} ${baseClass}`;

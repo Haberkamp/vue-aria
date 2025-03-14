@@ -935,3 +935,31 @@ fact("removes custom content when the button is blurred", async () => {
   // ASSERT
   expect(screen.getByRole("button")).not.toHaveTextContent("Focused");
 });
+
+fact("adds a custom class when the button is focused", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { className: ({ isFocused }) => (isFocused ? "custom-class" : "") },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(screen.getByRole("button")).toHaveClass("custom-class");
+});
+
+fact("removes a custom class when the button is blurred", async () => {
+  // ARRANGE
+  render(Button, {
+    props: { className: ({ isFocused }) => (isFocused ? "custom-class" : "") },
+  });
+
+  await userEvent.click(screen.getByRole("button"));
+
+  // ACT
+  await userEvent.tab();
+
+  // ASSERT
+  expect(screen.getByRole("button")).not.toHaveClass("custom-class");
+});
