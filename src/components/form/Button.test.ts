@@ -531,3 +531,17 @@ fact("does not emit a onPress event when pending", async () => {
   // ASSERT
   expect(handler).not.toHaveBeenCalled();
 });
+
+fact("emits a press event when the button is clicked", async () => {
+  // ARRANGE
+  const handler = vi.fn();
+  render(Button, {
+    props: { onPress: handler },
+  });
+
+  // ACT
+  await userEvent.click(screen.getByRole("button"));
+
+  // ASSERT
+  expect(handler).toHaveBeenCalledExactlyOnceWith(expect.any(MouseEvent));
+});
